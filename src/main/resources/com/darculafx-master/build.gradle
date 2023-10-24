@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'com.github.mouse0w0'
+version '9.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = "19"
+    modules = ['javafx.controls']
+}
+
+sourceCompatibility = targetCompatibility = 11
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = "DarculaFX"
+                description = "JavaFX darcula theme."
+                url = "https://github.com/mouse0w0/darculafx"
+                licenses {
+                    license {
+                        name = "Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0"
+                    }
+                }
+                developers {
+                    developer {
+                        name = "Mouse"
+                        email = "mouse0w0@qq.com"
+                    }
+                }
+                scm {
+                    url = "https://github.com/mouse0w0/darculafx.git"
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = project.findProperty("ossUsername") ?: System.getenv("USERNAME")
+                password = project.findProperty("ossPassword") ?: System.getenv("PASSWORD")
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+}
