@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
@@ -24,38 +26,41 @@ public class HelloApplication extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        Button button = new Button("выбрать исходную папку");
-        HBox hBox = new HBox(10);
-        hBox.setAlignment(Pos.BOTTOM_CENTER);
-        hBox.getChildren().add(button);
-        gridPane.add(hBox, 0, 1);
+        Label pathIn = new Label("исходная папка");
+        gridPane.add(pathIn, 0, 0);
+        TextField textPathIn = new TextField();
+        gridPane.add(textPathIn, 1, 0);
+        Button button = new Button("...");
+        gridPane.add(button, 2, 0);
 
-        Button button1 = new Button("выбрать папку назначения");
-        HBox hBox1 = new HBox(10);
-        hBox1.setAlignment(Pos.BOTTOM_CENTER);
-        hBox1.getChildren().add(button1);
-        gridPane.add(hBox1, 0, 2);
+        Label pathOut = new Label("папка назначения");
+        gridPane.add(pathOut, 0, 1);
+        TextField textPathOut = new TextField();
+        gridPane.add(textPathOut, 1, 1);
+        Button button1 = new Button("...");
+        gridPane.add(button1, 2, 1);
 
-        Button buttonStart = new Button("начать перемещение");
-        HBox hBoxStart = new HBox(10);
-        hBoxStart.setAlignment(Pos.BOTTOM_CENTER);
-        hBoxStart.getChildren().add(buttonStart);
-        gridPane.add(hBoxStart, 0, 3);
+        Label start = new Label("переместить");
+        gridPane.add(start, 0, 2);
+        Button buttonStart = new Button("->");
+        buttonStart.setPrefSize(130, 10);
+        gridPane.add(buttonStart, 1, 2);
 
-        final String[] soursFilePath = new String[1];
+
+        //final String[] soursFilePath = new String[1];
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("выберите исходную деррикторию");
+        //final String[] destFilePath = new String[1];
 
-        final String[] destFilePath = new String[1];
-        fileChooser.setTitle("выберите целевую деррикторию");
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                fileChooser.setTitle("выберите исходную деррикторию");
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 final File selectedDirectory = directoryChooser.showDialog(stage);
                 if (selectedDirectory != null) {
-                    soursFilePath[0] = selectedDirectory.getAbsolutePath();
+                    textPathIn.setText(selectedDirectory.getAbsolutePath());
+                    //soursFilePath[0] = selectedDirectory.getAbsolutePath();
                 }
             }
 
@@ -64,10 +69,12 @@ public class HelloApplication extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                fileChooser.setTitle("выберите целевую деррикторию");
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 final File selectedDirectory = directoryChooser.showDialog(stage);
                 if (selectedDirectory != null) {
-                    destFilePath[0] = selectedDirectory.getAbsolutePath();
+                    textPathOut.setText(selectedDirectory.getAbsolutePath());
+                    //destFilePath[0] = selectedDirectory.getAbsolutePath();
                 }
             }
 
@@ -80,8 +87,8 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 MoverService moverService = new MoverService();
-                if (soursFilePath[0] != null) {
-                    moverService.traverseList(soursFilePath[0], destFilePath[0]);
+                if (textPathIn != null) {
+                    moverService.traverseList(textPathIn.getText(), textPathOut.getText());
                 }
             }
         });

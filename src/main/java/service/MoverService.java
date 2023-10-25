@@ -33,6 +33,7 @@ public class MoverService {
                 if (checkFileExistence(destSubFolder) == true) {
                     traverseList(file.getAbsolutePath(), dustFilePath);
                 }
+                file.delete();
             }
         }
     }
