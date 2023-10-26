@@ -87,9 +87,11 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 MoverService moverService = new MoverService();
-                if (textPathIn != null) {
+                if (textPathIn != null && textPathIn.equals(textPathOut)) {
+                } else {
                     moverService.traverseList(textPathIn.getText(), textPathOut.getText());
                 }
+                buttonStart.setText("перемещено");
             }
         });
 

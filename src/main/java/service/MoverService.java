@@ -25,7 +25,9 @@ public class MoverService {
         for(File file: files) {
             // если файл то передаёт в метод перемещеня
             if (file.isFile()) {
-                MoveHelper.move(file, dustFilePath);
+                if (!sourceFilesPath.equals(dustFilePath)) {
+                    MoveHelper.move(file, dustFilePath);
+                }
             } else {
                 // Если это папка, то вызываем рекурсивно метод traverseList для этой папки
                 File[] destSubFolder = new File[1];
@@ -37,4 +39,6 @@ public class MoverService {
             }
         }
     }
+
+
 }
