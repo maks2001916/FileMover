@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ import java.io.File;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage)  {
+
         stage.setTitle("Программа перемещения файлов");
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
@@ -44,8 +47,16 @@ public class HelloApplication extends Application {
         gridPane.add(start, 0, 2);
         Button buttonStart = new Button("->");
         buttonStart.setPrefSize(130, 10);
-        gridPane.add(buttonStart, 1, 2);
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.BOTTOM_CENTER);
+        hBox.getChildren().add(buttonStart);
 
+        hBox.setPrefSize(200, 10);
+        gridPane.add(hBox, 1, 2);
+
+        final Text info = new Text();
+
+        gridPane.add(info, 1, 3);
 
         //final String[] soursFilePath = new String[1];
         FileChooser fileChooser = new FileChooser();
@@ -60,7 +71,6 @@ public class HelloApplication extends Application {
                 final File selectedDirectory = directoryChooser.showDialog(stage);
                 if (selectedDirectory != null) {
                     textPathIn.setText(selectedDirectory.getAbsolutePath());
-                    //soursFilePath[0] = selectedDirectory.getAbsolutePath();
                 }
             }
 
@@ -74,7 +84,6 @@ public class HelloApplication extends Application {
                 final File selectedDirectory = directoryChooser.showDialog(stage);
                 if (selectedDirectory != null) {
                     textPathOut.setText(selectedDirectory.getAbsolutePath());
-                    //destFilePath[0] = selectedDirectory.getAbsolutePath();
                 }
             }
 
@@ -87,14 +96,16 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 MoverService moverService = new MoverService();
-                if (textPathIn != null && textPathIn.equals(textPathOut)) {
-                } else {
+                if (!textPathIn.getText().isEmpty() && !textPathOut.getText().isEmpty()) {
                     moverService.traverseList(textPathIn.getText(), textPathOut.getText());
+                    info.setFill(Color.BLUE);
+                    info.setText("перемещено");
+                } else {
+                    info.setFill(Color.RED);
+                    info.setText("пути не указаны");
                 }
-                buttonStart.setText("перемещено");
             }
         });
-
         stage.show();
     }
 
