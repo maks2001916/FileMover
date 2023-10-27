@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>projectThru</artifactId>
+  <artifactId>FileMover</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>project Thru</name>
 
@@ -81,7 +81,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.projectthru/com.example.projectthru.HelloApplication</mainClass>
+              <mainClass>com.example.projectthru/com.example.FileMover.HelloApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

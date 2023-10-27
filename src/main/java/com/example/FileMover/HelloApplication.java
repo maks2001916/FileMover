@@ -1,5 +1,4 @@
-package com.example.projectthru;
-
+package com.example.FileMover;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +15,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.MoverService;
-
 import java.io.File;
 
 public class HelloApplication extends Application {
@@ -55,13 +53,9 @@ public class HelloApplication extends Application {
         gridPane.add(hBox, 1, 2);
 
         final Text info = new Text();
-
         gridPane.add(info, 1, 3);
 
-        //final String[] soursFilePath = new String[1];
         FileChooser fileChooser = new FileChooser();
-        //final String[] destFilePath = new String[1];
-
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override

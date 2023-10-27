@@ -1,4 +1,4 @@
-package com.example.projectthru;
+package com.example.FileMover;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

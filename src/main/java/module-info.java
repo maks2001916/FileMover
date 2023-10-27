@@ -6,6 +6,6 @@ module com.example.projectthru {
     requires org.kordamp.bootstrapfx.core;
 
 
-    opens com.example.projectthru to javafx.fxml;
-    exports com.example.projectthru;
+    opens com.example.FileMover to javafx.fxml;
+    exports com.example.FileMover;
 }
