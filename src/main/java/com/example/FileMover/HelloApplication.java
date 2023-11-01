@@ -22,6 +22,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage)  {
 
         stage.setTitle("Программа перемещения файлов");
+        stage.setWidth(400);
+        stage.setHeight(150);
+        stage.setResizable(false);
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(10);
