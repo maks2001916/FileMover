@@ -1,6 +1,7 @@
 package service;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class MoverService {
@@ -40,5 +41,8 @@ public class MoverService {
         }
     }
 
+    public String fileToStylesheetString ( File stylesheetFile ) {
+        return stylesheetFile.toURI().toString();
+    }
 
 }

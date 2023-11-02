@@ -23,12 +23,14 @@ public class HelloApplication extends Application {
 
         stage.setTitle("Программа перемещения файлов");
         stage.setWidth(400);
-        stage.setHeight(150);
+        stage.setHeight(170);
         stage.setResizable(false);
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
+
+
 
         Label pathIn = new Label("исходная папка");
         gridPane.add(pathIn, 0, 0);
@@ -51,9 +53,10 @@ public class HelloApplication extends Application {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.BOTTOM_CENTER);
         hBox.getChildren().add(buttonStart);
-
         hBox.setPrefSize(200, 10);
         gridPane.add(hBox, 1, 2);
+
+
 
         final Text info = new Text();
         gridPane.add(info, 1, 3);
@@ -63,6 +66,10 @@ public class HelloApplication extends Application {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                if (info.getFill().equals(Color.RED)) {
+                    info.setFill(Color.BLACK);
+                    info.setText("");
+                }
                 fileChooser.setTitle("выберите исходную деррикторию");
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 final File selectedDirectory = directoryChooser.showDialog(stage);
@@ -73,9 +80,27 @@ public class HelloApplication extends Application {
 
         });
 
+        textPathIn.setOnMouseClicked( mouseEvent -> {
+            if (info.getFill().equals(Color.RED)) {
+                info.setFill(Color.BLACK);
+                info.setText("");
+            }
+        });
+
+        textPathOut.setOnMouseClicked( mouseEvent -> {
+            if (info.getFill().equals(Color.RED)) {
+                info.setFill(Color.BLACK);
+                info.setText("");
+            }
+        });
+
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                if (info.getFill().equals(Color.RED)) {
+                    info.setFill(Color.BLACK);
+                    info.setText("");
+                }
                 fileChooser.setTitle("выберите целевую деррикторию");
                 final DirectoryChooser directoryChooser = new DirectoryChooser();
                 final File selectedDirectory = directoryChooser.showDialog(stage);
@@ -88,6 +113,14 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(gridPane, 300, 200);
         stage.setScene(scene);
+        MoverService moverService = new MoverService();
+        String fontSheet = moverService.fileToStylesheetString(new File ("/run/media/deck/5A2F-89BA/program/IdeaProjects/my_projects/FileMover/src/main/resources/darculafx/darcula.css") );
+        scene.getStylesheets().add( fontSheet );
+
+        scene.setOnMouseClicked(mouseEvent -> {
+            info.setText("");
+        });
+
 
         buttonStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
