@@ -20,6 +20,12 @@ public class MoveHelper {
         }
     }
 
+    public static double prigresses(long progress, long size) {
+        double res = (double) progress/size;
+        System.out.println(res);
+        return res;
+    }
+
     // Метод для проверки, является ли папка пустой
     //public static boolean isEmptyFolder(File folder) {
     //    File[] files = folder.listFiles();
