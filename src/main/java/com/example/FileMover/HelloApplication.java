@@ -1,6 +1,5 @@
 package com.example.FileMover;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -8,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.MoverService;
 
@@ -22,7 +18,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage)  {
 
         MoverService moverService = new MoverService();
-        moverService.getListLanguages();
+        moverService.openListLanguages();
 
         stage.setTitle(moverService.getProperties("title"));
         stage.setWidth(415);

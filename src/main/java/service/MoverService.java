@@ -2,7 +2,6 @@ package service;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -10,10 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class MoverService {
-    private File[] directory;
-    private long allFilesSize;
-    private long progress;
-    Properties properties = new Properties();
+    private File[] directory; //массив файлов ресурсов
+    private long allFilesSize; //суммарный размер файлов
+    private long progress; //сумма перемещённых файлов
+    private final Properties properties = new Properties();
 
     /** метод проверки существования файла */
     public boolean checkFileExistence(File[] source) {
@@ -108,7 +107,7 @@ public class MoverService {
     }
 
     /** метод получения файлов свойств с языками */
-    public void getListLanguages() {
+    public void openListLanguages() {
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
