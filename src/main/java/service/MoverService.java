@@ -40,13 +40,13 @@ public class MoverService {
                     if (allFilesSize > 0) {
 
                         progress = progress + file.length();
-                        System.out.println("progress - " + MoveHelper.prigresses(progress, allFilesSize));
-                        MoveHelper.prigresses(progress, allFilesSize);
+                        System.out.println("progress - " + MoveHelper.progresses(progress, allFilesSize));
+                        MoveHelper.progresses(progress, allFilesSize);
                     } else {
 
-                        System.out.println("progress - " + MoveHelper.prigresses(progress, allFilesSize));
+                        System.out.println("progress - " + MoveHelper.progresses(progress, allFilesSize));
                         System.out.println(file.length()/allFilesSize);
-                        MoveHelper.prigresses(progress, allFilesSize);
+                        MoveHelper.progresses(progress, allFilesSize);
                     }
 
                 }
@@ -107,7 +107,7 @@ public class MoverService {
         return langName;
     }
 
-    /** метод получения фацлов свойств с языками */
+    /** метод получения файлов свойств с языками */
     public void getListLanguages() {
         FilenameFilter filter = new FilenameFilter() {
             @Override
@@ -121,15 +121,12 @@ public class MoverService {
 
     /** метод открытия файла свойств */
     public void languageOpen(String lang) {
-        //Properties properties = new Properties();
         try(InputStream input = new FileInputStream("src/main/resources/" + lang);
             InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
             properties.load(reader);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
             System.out.println("поле title = " + getProperties("title"));
-            //System.out.println(directory[0].getName());
-            //System.out.println(directory[1].getName());
         }
     }
 

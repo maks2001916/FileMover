@@ -20,7 +20,7 @@ public class MoveHelper {
         }
     }
 
-    public static double prigresses(long progress, long size) {
+    public static double progresses(long progress, long size) {
         double res = (double) progress/size;
         System.out.println(res);
         return res;
