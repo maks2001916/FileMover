@@ -12,6 +12,7 @@ public class MoverService {
     private File[] directory; //массив файлов ресурсов
     private long allFilesSize; //суммарный размер файлов
     private long progress; //сумма перемещённых файлов
+    private String[] langName; //название языка
     private final Properties properties = new Properties();
 
     /** метод проверки существования файла */
@@ -29,6 +30,7 @@ public class MoverService {
         // получает список файлов директории
         File directory = new File(sourceFilesPath);
         File[] files = directory.listFiles();
+
         // обходит список
         assert files != null;
         for(File file: files) {
@@ -37,12 +39,10 @@ public class MoverService {
                 if (!sourceFilesPath.equals(dustFilePath)) {
                     MoveHelper.move(file, dustFilePath);
                     if (allFilesSize > 0) {
-
                         progress = progress + file.length();
                         System.out.println("progress - " + MoveHelper.progresses(progress, allFilesSize));
                         MoveHelper.progresses(progress, allFilesSize);
                     } else {
-
                         System.out.println("progress - " + MoveHelper.progresses(progress, allFilesSize));
                         System.out.println(file.length()/allFilesSize);
                         MoveHelper.progresses(progress, allFilesSize);
@@ -95,14 +95,17 @@ public class MoverService {
     }
 
     /** метод получения имени языка из файла свойств */
-    public String[] getLanguagesList() {
-        String[] langName = new String[directory.length];
+    public void collectingLanguageNames()  {
+        langName = new String[directory.length];
         for (int i = 0; i < directory.length; i++) {
             languageOpen(getLanguageName(i));
             System.out.println(properties.getProperty("language"));
             langName[i] = properties.getProperty("language");
             System.out.println("имена загружены в массив" + directory.length);
         }
+    }
+
+    public String[] getLanguagesList() {
         return langName;
     }
 

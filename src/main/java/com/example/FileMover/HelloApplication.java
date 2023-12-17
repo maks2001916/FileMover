@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import service.MoverService;
@@ -24,6 +24,7 @@ public class HelloApplication extends Application {
         stage.setWidth(415);
         stage.setHeight(160);
         stage.setResizable(true);
+        
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(10);
@@ -49,15 +50,15 @@ public class HelloApplication extends Application {
         gridPane.add(start, 0, 2);
         Button buttonStart = new Button("->");
         buttonStart.setPrefSize(200, 10);
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.BOTTOM_CENTER);
-        hBox.getChildren().add(buttonStart);
-        hBox.setPrefSize(200, 10);
-        gridPane.add(hBox, 1, 2);
-
+        gridPane.add(buttonStart, 1, 2);
+        
         ProgressBar progressBar = new ProgressBar();
-        gridPane.add(progressBar, 1, 3);
-        progressBar.setMinWidth(200);
+        progressBar.setMinWidth(400);
+        
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.BOTTOM_CENTER);
+        vBox.setPrefSize(400, 160);
+        vBox.getChildren().addAll(gridPane, progressBar);
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -85,7 +86,7 @@ public class HelloApplication extends Application {
 
         });
 
-        Scene scene = new Scene(gridPane, 300, 200);
+        Scene scene = new Scene(vBox, 400, 160);
         stage.setScene(scene);
 
         String fontSheet = moverService.fileToStylesheetString(new File (
@@ -114,6 +115,7 @@ public class HelloApplication extends Application {
 
         MenuButton lang = new MenuButton(moverService.getProperties("languageSmall"));
         lang.setMinWidth(60);
+        moverService.collectingLanguageNames();
         gridPane.add(lang, 2, 2);
         for (int i=0; i<moverService.getLanguagesList().length; i++) {
             MenuItem menuItem = new MenuItem(moverService.getLanguagesList()[i]);
