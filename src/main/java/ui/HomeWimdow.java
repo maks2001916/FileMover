@@ -23,6 +23,9 @@ public class HomeWimdow {
     private Scene scene;
     private final int widthStage = 415;
     private final int heigtStage = 160;
+    private final int width_ButtonStart = 200;
+    private final int height_ButtonStart = 20;
+    private final int width_ProgressBar = 400;
     private final int sizeGap = 10;
     private final boolean resizable = true;
     private Label pathIn;
@@ -39,19 +42,23 @@ public class HomeWimdow {
 
     public HomeWimdow(Stage inputStage) {
         languageResources = new OpenLanguageResources();
+
         uiHelper = new UiHelper();
         moverService = new MoverService();
         gridPane = new GridPane();
         vBox = new VBox();
+        uiHelper.createVBox(vBox, widthStage, heigtStage);
         pathIn = new Label(moverService.getProperties("pathIn"));
         pathOut = new Label(moverService.getProperties("pathOut"));
         labelStart = new Label(moverService.getProperties("move"));
         textPathIn = new TextField();
         textPathOut = new TextField();
         progressBar = new ProgressBar();
+        uiHelper.createProgressBar(progressBar, width_ProgressBar);
         openPathIn = new Button("...");
         openPathOut = new Button("...");
         buttonStart = new Button("->");
+        uiHelper.createButton(buttonStart, width_ButtonStart, height_ButtonStart);
         selectLanguage = new MenuButton(moverService.getProperties("languageSmall"));
 
 
@@ -64,6 +71,7 @@ public class HomeWimdow {
     }
 
     public void start() {
+        languageResources.renameTitles(this, 1);
         uiHelper.createGridPane(gridPane, sizeGap);
         createButtonSelectLanguage();
         gridAddElements();
@@ -97,7 +105,7 @@ public class HomeWimdow {
             menuItem.setOnAction(e -> languageResources.renameTitles(
                     this, u)
             );
-            menuItem.setOnAction(e -> start());
+            //menuItem.setOnAction(e -> start());
             selectLanguage.getItems().add(menuItem);
         }
 
