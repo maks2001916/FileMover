@@ -1,8 +1,8 @@
 package ui;
 
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,6 +20,13 @@ public class UiHelper {
         return stage;
     }
 
+    public Scene createScene(VBox vBox,
+                             int width,
+                             int height) {
+        return new Scene(vBox, width, height);
+    }
+
+
     public GridPane createGridPane(
             GridPane grid,
             int gap) {
@@ -30,8 +37,10 @@ public class UiHelper {
     }
 
     public Button createButton(Button button,
-                              int width) {
+                              int width ,
+                               int height) {
         button.setMinWidth(width);
+        button.setMinHeight(height);
         return button;
     }
 

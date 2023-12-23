@@ -1,22 +1,26 @@
 package ui;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import service.HomeWindowAction;
 import service.MoverService;
+import service.OpenLanguageResources;
+
+import java.io.File;
 
 public class HomeWimdow {
 
     private UiHelper uiHelper;
     private MoverService moverService;
+    private OpenLanguageResources languageResources;
     private Stage stage;
+    private String fontSheet;
     private GridPane gridPane;
     private VBox vBox;
+    private Scene scene;
     private final int widthStage = 415;
     private final int heigtStage = 160;
     private final int sizeGap = 10;
@@ -29,10 +33,12 @@ public class HomeWimdow {
     private Button openPathIn;
     private Button openPathOut;
     private Button buttonStart;
+    private MenuButton selectLanguage;
     private ProgressBar progressBar;
 
 
     public HomeWimdow(Stage inputStage) {
+        languageResources = new OpenLanguageResources();
         uiHelper = new UiHelper();
         moverService = new MoverService();
         gridPane = new GridPane();
@@ -46,6 +52,7 @@ public class HomeWimdow {
         openPathIn = new Button("...");
         openPathOut = new Button("...");
         buttonStart = new Button("->");
+        selectLanguage = new MenuButton(moverService.getProperties("languageSmall"));
 
 
         stage = uiHelper.createStage(
@@ -58,6 +65,11 @@ public class HomeWimdow {
 
     public void start() {
         uiHelper.createGridPane(gridPane, sizeGap);
+        createButtonSelectLanguage();
+        gridAddElements();
+        scene = uiHelper.createScene(vBox, widthStage, heigtStage);
+        setFontSheet();
+        stage.setScene(scene);
     }
 
     private void gridAddElements() {
@@ -71,9 +83,24 @@ public class HomeWimdow {
 
         gridPane.add(labelStart, 0, 2);
         gridPane.add(buttonStart, 1, 2);
+        gridPane.add(selectLanguage, 2, 2);
         vBox.getChildren().addAll(gridPane, progressBar);
 
         activationAction();
+    }
+
+    private void createButtonSelectLanguage() {
+        //создание меню для выбора языка интерфейса
+        for (int i = 0; i<languageResources.getDirectory().length; i++) {
+            RadioMenuItem menuItem = new RadioMenuItem(languageResources.getPropertiesLangName()[i]);
+            final int u = i;
+            menuItem.setOnAction(e -> languageResources.renameTitles(
+                    this, u)
+            );
+            menuItem.setOnAction(e -> start());
+            selectLanguage.getItems().add(menuItem);
+        }
+
     }
 
     private void activationAction() {
@@ -97,4 +124,29 @@ public class HomeWimdow {
                 progressBar);
     }
 
+    private void setFontSheet() {
+        fontSheet = moverService.fileToStylesheetString(new File(
+                "/run/media/deck/5A2F-89BA/program/IdeaProjects/my_projects/FileMover/src/main/resources/darculafx/darcula.css") );
+        scene.getStylesheets().add( fontSheet );
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Label getPathIn() {
+        return pathIn;
+    }
+
+    public Label getPathOut() {
+        return pathOut;
+    }
+
+    public Label getLabelStart() {
+        return labelStart;
+    }
+
+    public MenuButton getSelectLanguage() {
+        return selectLanguage;
+    }
 }
