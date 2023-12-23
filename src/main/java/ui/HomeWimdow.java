@@ -25,6 +25,7 @@ public class HomeWimdow {
     private final int heigtStage = 160;
     private final int width_ButtonStart = 200;
     private final int height_ButtonStart = 20;
+    private final int width_ButtonsOperation = 60;
     private final int width_ProgressBar = 400;
     private final int sizeGap = 10;
     private final boolean resizable = true;
@@ -56,10 +57,13 @@ public class HomeWimdow {
         progressBar = new ProgressBar();
         uiHelper.createProgressBar(progressBar, width_ProgressBar);
         openPathIn = new Button("...");
+        uiHelper.createButton(openPathIn, width_ButtonsOperation);
         openPathOut = new Button("...");
+        uiHelper.createButton(openPathOut, width_ButtonsOperation);
         buttonStart = new Button("->");
         uiHelper.createButton(buttonStart, width_ButtonStart, height_ButtonStart);
         selectLanguage = new MenuButton(moverService.getProperties("languageSmall"));
+        uiHelper.createMenuButton(selectLanguage, width_ButtonsOperation);
 
 
         stage = uiHelper.createStage(

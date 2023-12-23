@@ -3,6 +3,7 @@ package ui;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -55,8 +56,15 @@ public class UiHelper {
         vBox.setPrefSize(width, height);
     }
 
-    public void createButton(Button button) {
-        button.setPrefSize(100, 50);
+    public void createButton(Button button,
+                             int width) {
+        button.setMinWidth(width);
+
+    }
+
+    public void createMenuButton(MenuButton button,
+                             int width) {
+        button.setMinWidth(width);
 
     }
 
